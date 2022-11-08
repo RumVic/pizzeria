@@ -1,0 +1,9 @@
+
+*Password*
+*.class
+.idea/
+out/
+*.iml
+target/
+*.DS_Store
+src/.DS_Store
