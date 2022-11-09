@@ -1,0 +1,23 @@
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone;
+
+public class MenuServiceSingleton {
+    private static volatile MenuServiceSingleton instance;
+
+    private final IMenuService menuService;
+
+    private MenuServiceSingleton() {
+        menuService = new MenuService(MenuStorageSingleton.getInstance());
+    }
+
+    public static IMenuService getInstance() {
+        if (instance == null) {
+            synchronized (MenuServiceSingleton.class) {
+                if (instance == null) {
+                    instance = new MenuServiceSingleton();
+                }
+            }
+        }
+
+        return instance.menuService;
+    }
+}
