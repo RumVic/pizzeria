@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api;
 
 import java.time.LocalDateTime;
 

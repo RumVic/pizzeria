@@ -1,7 +1,7 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.service;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenu;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.MenuDaoSingleton;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.singleton.MenuDaoSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuService;
 import java.time.LocalDateTime;
@@ -9,9 +9,9 @@ import java.util.List;
 
 public class MenuService implements IMenuService {
 
-    //private final IMenuDao menuDao;
+    private final IMenuDao menuDao;
 
-    private IMenuDao menuDao = MenuDaoSingleton.getInstance();
+    //private IMenuDao menuDao = MenuDaoSingleton.getInstance();
 
 
     public MenuService(IMenuDao menuDao) {

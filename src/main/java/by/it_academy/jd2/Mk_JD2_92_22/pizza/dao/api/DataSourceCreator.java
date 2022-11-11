@@ -1,3 +1,4 @@
+/*
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -32,3 +33,4 @@ public class DataSourceCreator {
         return instance.cpds;
     }
 }
+*/

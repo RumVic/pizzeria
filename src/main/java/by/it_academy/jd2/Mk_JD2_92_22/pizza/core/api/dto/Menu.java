@@ -1,7 +1,7 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.api.dto;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.dto;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenu;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenuRow;
 
 import java.time.LocalDateTime;
 import java.util.List;
