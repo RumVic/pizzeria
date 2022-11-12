@@ -1,6 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.singleton.MenuDaoSingleton;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.DAO.singleton.MenuDaoSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity.MenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuService;
 

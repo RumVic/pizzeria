@@ -1,8 +1,10 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity;
 
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.singleton.MenuDaoSingleton;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.DAO.api.IMenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.builders.MenuBuilder;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,12 +21,13 @@ public class MenuService implements IMenuService {
     }
 
     @Override
-    public IMenu create(IMenu item) {
-
-        item.setDtCreate(LocalDateTime.now());
-        item.setDtUpdate(item.getDtCreate());
-
-        return menuDao.create(item);
+    public IMenu create(IMenuDTO menuDTO) {
+        return menuDao.create(MenuBuilder.create()
+                    .setDtCreate(LocalDateTime.now())
+                    .setDtUpdate(LocalDateTime.now())
+                    .setName(menuDTO.getName())
+                    .setEnabled(menuDTO.isEnabled())
+                    .build());
     }
 
     @Override

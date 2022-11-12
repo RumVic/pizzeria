@@ -1,12 +1,12 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers;
 
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuServiceSingleton;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,11 +43,10 @@ public class MenuServlet extends HttpServlet {
     //2) Read item (card) need id param
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doGet(req, resp);
 
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("APPLICATION/JSON");
+        req.setCharacterEncoding(CE);
+        resp.setCharacterEncoding(CE);
+        resp.setContentType(CT);
         PrintWriter writer = resp.getWriter();
 
         if (req.getParameter("id") != null) {
@@ -61,28 +60,28 @@ public class MenuServlet extends HttpServlet {
                 System.out.println("Something went wrong in try block");
             }
         }
-
-
-       /* try {
-            String idParameter = req.getParameter("id");
-            if(!idParameter.isEmpty()){
-                long idLong = Long.parseLong(idParameter);
-                PrintWriter writer = resp.getWriter();
-                writer.write(this.mapper.writeValueAsString(menu.read(idLong)));
-            }
-        } catch (Exception e){
-            System.out.println("something went wrong");
-            System.out.println(e.getMessage());
-        }*/
     }
 
 
     //CREATE POSITION
     //body json
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doPost(req, resp);
-        //String  = req.getParameter()
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IllegalArgumentException ,ServletException, IOException {
+
+        req.setCharacterEncoding(CE);
+        resp.setCharacterEncoding(CE);
+        resp.setContentType(CT);
+
+        if (req.getParameter("name").isEmpty()){
+            throw new IllegalArgumentException("The name is being empty.Specify the name");
+        }
+        if(req.getParameter("enable").isEmpty()){
+            throw new IllegalArgumentException("The enable parameter wasn't passed. Specify the enable param");
+        }
+        MenuDTO createDTO = this.mapper.readValue(req.getInputStream(),MenuDTO.class);
+        menuService.create(createDTO);
+
+
 
     }
 

@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.dto;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenuRow;
@@ -17,6 +17,13 @@ public class Menu implements IMenu {
 
     public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled) {
         this.id = id;
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
+        this.name = name;
+        this.enabled = enabled;
+    }
+
+    public Menu(LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled) {
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.name = name;
