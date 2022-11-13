@@ -13,8 +13,8 @@ public class MenuDTO implements IMenuDTO {
 
     public MenuDTO(String name, boolean enabled) {
         this.name = name;
-        this.enabled = enabled;}
-
+        this.enabled = enabled;
+    }
 
     public String getName() {
         return name;
@@ -23,6 +23,7 @@ public class MenuDTO implements IMenuDTO {
     public boolean isEnabled() {
         return enabled;
     }
+
 
     @Override
     public boolean equals(Object o) {

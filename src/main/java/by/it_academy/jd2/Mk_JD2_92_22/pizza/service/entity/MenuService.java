@@ -40,22 +40,27 @@ public class MenuService implements IMenuService {
     }
 
     @Override
-    public IMenu update(long id, LocalDateTime dtUpdate, IMenu item) {
+    public IMenu update(long id, LocalDateTime dtUpdate, IMenuDTO menuDTO) {
+
         IMenu readed = menuDao.read(id);
 
         if(readed == null){
             throw new IllegalArgumentException("Меню не найдено");
         }
 
+
         if(!readed.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("К сожалению меню уже было отредактировано кем-то другим");
         }
 
-        readed.setDtUpdate(LocalDateTime.now());
-        readed.setName(item.getName());
-        readed.setEnabled(item.isEnabled());
+        IMenu menuUpdate = MenuBuilder.create()
+                .setDtCreate(readed.getDtCreate())
+                .setDtUpdate(LocalDateTime.now())
+                .setName(menuDTO.getName())
+                .setEnabled(menuDTO.isEnabled())
+                .build();
 
-        return menuDao.update(id, dtUpdate, readed);
+        return menuDao.update(id, dtUpdate, menuUpdate);
     }
 
     @Override

@@ -7,12 +7,12 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuServiceSingle
 public class TestPostClass {
     private IMenuService menuService;
 
-    public TestPostClass(){
-        this.menuService = MenuServiceSingleton.getInstance();
-    }
+    //public TestPostClass(){
+      //  this.menuService = MenuServiceSingleton.getInstance();
+    //}
 
-    public void mainSix() {
-        MenuDTO menuDTO = new MenuDTO("extension", true);
-        System.out.println(menuService.create(menuDTO));
-    }
+    //public void mainSix() {
+        //MenuDTO menuDTO = new MenuDTO("extension", true);
+       // System.out.println(menuService.create(menuDTO));
+   // }
 }

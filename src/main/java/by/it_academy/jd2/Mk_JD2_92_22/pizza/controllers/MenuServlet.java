@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 //CRUD controller
@@ -75,7 +77,7 @@ public class MenuServlet extends HttpServlet {
         MenuDTO createDTO = this.mapper.readValue(req.getInputStream(),MenuDTO.class);
         try {
             resp.getWriter().write(this.mapper.writeValueAsString(menuService.create(createDTO)));
-            resp.setStatus(HttpServletResponse.SC_CONFLICT);
+            //resp.setStatus(HttpServletResponse.SC_CONFLICT);
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
@@ -88,6 +90,23 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doPut(req, resp);
+        req.setCharacterEncoding(CE);
+        resp.setCharacterEncoding(CE);
+        resp.setContentType(CT);
+
+        long id = Long.parseLong(req.getParameter("id"));
+        LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+        //2022-11-13T19:36:28.025110 this way send dtUpdate param;
+        try {
+            MenuDTO createDTO = this.mapper.readValue(req.getInputStream(),MenuDTO.class);
+            menuService.update(id,dtUpdate,createDTO);
+        }catch (IllegalArgumentException i){
+            System.out.println("Check out accuracy wrote data");
+        }
+
+
+
     }
 
     //DELETE POSITION
