@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuDTO;
+
 import java.util.Objects;
 
 public class MenuDTO implements IMenuDTO {

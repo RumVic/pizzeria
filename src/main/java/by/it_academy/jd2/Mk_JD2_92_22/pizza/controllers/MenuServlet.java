@@ -7,6 +7,7 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuServiceSingle
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +30,7 @@ public class MenuServlet extends HttpServlet {
     private IMenuService menuService;
     private ObjectMapper mapper;
 
-    public MenuServlet(){
+    public MenuServlet() {
         this.menuService = MenuServiceSingleton.getInstance();
         this.mapper = new ObjectMapper();
 
@@ -37,8 +38,6 @@ public class MenuServlet extends HttpServlet {
                 .addModule(new JavaTimeModule())
                 .build();
     }
-
-
 
     //Read POSITION
     //1) Read list
@@ -54,7 +53,7 @@ public class MenuServlet extends HttpServlet {
         if (req.getParameter("id") != null) {
             IMenu positionById = menuService.read(Long.parseLong(req.getParameter("id")));
             writer.write(this.mapper.writeValueAsString(positionById));
-        }else {
+        } else {
             try {
                 List<IMenu> menuList = menuService.get();
                 writer.write(this.mapper.writeValueAsString(menuList));
@@ -68,13 +67,13 @@ public class MenuServlet extends HttpServlet {
     //CREATE POSITION
     //body json
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IllegalArgumentException ,ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IllegalArgumentException, ServletException, IOException {
 
         req.setCharacterEncoding(CE);
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
-        MenuDTO createDTO = this.mapper.readValue(req.getInputStream(),MenuDTO.class);
+        MenuDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuDTO.class);
         try {
             resp.getWriter().write(this.mapper.writeValueAsString(menuService.create(createDTO)));
             //resp.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -94,10 +93,10 @@ public class MenuServlet extends HttpServlet {
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
-        if(req.getParameter("id").isEmpty()){
+        if (req.getParameter("id").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass id parameter");
         }
-        if(req.getParameter("dtUpdate").isEmpty()){
+        if (req.getParameter("dtUpdate").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass dtUpdate parameter");
         }
 
@@ -106,12 +105,11 @@ public class MenuServlet extends HttpServlet {
 
         //2022-11-13T19:36:28.025110 this way send dtUpdate param; you need send in this way
         try {
-            MenuDTO createDTO = this.mapper.readValue(req.getInputStream(),MenuDTO.class);
-            menuService.update(id,dtUpdate,createDTO);
-        }catch (IllegalArgumentException i){
+            MenuDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuDTO.class);
+            menuService.update(id, dtUpdate, createDTO);
+        } catch (IllegalArgumentException i) {
             System.out.println("Check out accuracy wrote data");
         }
-
 
 
     }
@@ -126,16 +124,16 @@ public class MenuServlet extends HttpServlet {
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
-        if(req.getParameter("id").isEmpty()){
+        if (req.getParameter("id").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass id parameter");
         }
-        if(req.getParameter("dtUpdate").isEmpty()){
+        if (req.getParameter("dtUpdate").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass dtUpdate parameter");
         }
 
         long id = Long.parseLong(req.getParameter("id"));
         LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        menuService.delete(id,dtUpdate);
+        menuService.delete(id, dtUpdate);
     }
 }

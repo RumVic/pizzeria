@@ -15,7 +15,8 @@ public class MenuBuilder {
 
     private static final MenuBuilder INSTANCE = new MenuBuilder();
 
-    private MenuBuilder() {}
+    private MenuBuilder() {
+    }
 
     public static MenuBuilder create() {
         return new MenuBuilder();
@@ -41,7 +42,7 @@ public class MenuBuilder {
         return this;
     }
 
-    public  IMenu build(){
-        return new Menu(dtCreate,dtUpdate,name,enabled);
+    public IMenu build() {
+        return new Menu(dtCreate, dtUpdate, name, enabled);
     }
 }

@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface IService<TYPE> {
     TYPE create(IMenuDTO menuDTO);
+
     TYPE read(long id);
+
     List<TYPE> get();
+
     TYPE update(long id, LocalDateTime dtUpdate, IMenuDTO menuDTO);
+
     void delete(long id, LocalDateTime dtUpdate);
 }

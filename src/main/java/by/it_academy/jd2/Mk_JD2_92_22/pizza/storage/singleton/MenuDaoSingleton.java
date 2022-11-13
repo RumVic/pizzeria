@@ -1,5 +1,6 @@
 
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton;
+
 import by.it_academy.jd2.Mk_JD2_92_22.main.DataSourceCreator;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity.MenuDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuDao;
@@ -9,17 +10,17 @@ public class MenuDaoSingleton {
     private volatile static MenuDaoSingleton instance;
 
     public MenuDaoSingleton() {
-        try{
+        try {
             this.menuDao = new MenuDao(DataSourceCreator.getInstance());
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Возникли проблемы с созданием слоя доступа к данным", e);
         }
     }
 
     public static IMenuDao getInstance() {
-        if(instance == null){
-            synchronized (MenuDaoSingleton.class){
-                if(instance == null){
+        if (instance == null) {
+            synchronized (MenuDaoSingleton.class) {
+                if (instance == null) {
                     instance = new MenuDaoSingleton();
                 }
             }

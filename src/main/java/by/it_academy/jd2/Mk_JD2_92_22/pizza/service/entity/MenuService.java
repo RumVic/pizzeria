@@ -22,11 +22,11 @@ public class MenuService implements IMenuService {
     @Override
     public IMenu create(IMenuDTO menuDTO) {
         return menuDao.create(MenuBuilder.create()
-                    .setDtCreate(LocalDateTime.now())
-                    .setDtUpdate(LocalDateTime.now())
-                    .setName(menuDTO.getName())
-                    .setEnabled(menuDTO.isEnabled())
-                    .build());
+                .setDtCreate(LocalDateTime.now())
+                .setDtUpdate(LocalDateTime.now())
+                .setName(menuDTO.getName())
+                .setEnabled(menuDTO.isEnabled())
+                .build());
     }
 
     @Override
@@ -44,12 +44,12 @@ public class MenuService implements IMenuService {
 
         IMenu readed = menuDao.read(id);
 
-        if(readed == null){
+        if (readed == null) {
             throw new IllegalArgumentException("Меню не найдено");
         }
 
 
-        if(!readed.getDtUpdate().isEqual(dtUpdate)){
+        if (!readed.getDtUpdate().isEqual(dtUpdate)) {
             throw new IllegalArgumentException("К сожалению меню уже было отредактировано кем-то другим");
         }
 
@@ -65,6 +65,6 @@ public class MenuService implements IMenuService {
 
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
-        menuDao.delete(id,dtUpdate);
+        menuDao.delete(id, dtUpdate);
     }
 }
