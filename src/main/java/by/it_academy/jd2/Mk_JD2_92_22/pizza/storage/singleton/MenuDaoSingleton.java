@@ -1,8 +1,8 @@
 
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.DAO.singleton;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton;
 import by.it_academy.jd2.Mk_JD2_92_22.main.DataSourceCreator;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.DAO.entity.MenuDao;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.DAO.api.IMenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity.MenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuDao;
 
 public class MenuDaoSingleton {
     private IMenuDao menuDao;

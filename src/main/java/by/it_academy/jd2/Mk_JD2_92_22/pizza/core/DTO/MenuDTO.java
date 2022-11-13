@@ -8,6 +8,9 @@ public class MenuDTO implements IMenuDTO {
     private String name;
     private boolean enabled;
 
+    public MenuDTO() {
+    }
+
     public MenuDTO(String name, boolean enabled) {
         this.name = name;
         this.enabled = enabled;}

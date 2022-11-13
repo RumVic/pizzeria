@@ -1,8 +1,8 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.DAO.entity;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.Menu;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.DAO.api.IMenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -48,10 +48,18 @@ public class MenuDao implements IMenuDao {
 
             int updated = stm.executeUpdate();
 
-            return read(stm.getGeneratedKeys().getLong(1));//return id from created line in first colum
+                ResultSet generatedKeys  = stm.getGeneratedKeys();
+                if(generatedKeys.next()) {
+                    return read(generatedKeys.getLong(1));
+                }
+            return read(generatedKeys.getLong(1));
+
+
+            //stm.getGeneratedKeys().getLong(1)
+            //return id from created line in first colum
         } catch (SQLException e){
-            throw new RuntimeException("При сохранении данных произошла ошибка", e);
-        }
+           throw new RuntimeException("При сохранении данных произошла ошибка", e);
+       }
     }
 
     @Override
@@ -67,7 +75,7 @@ public class MenuDao implements IMenuDao {
                 }
             }
         } catch (SQLException e){
-            throw new RuntimeException("При сохранении данных произошла ошибка", e);
+            throw new RuntimeException("При чтении данных произошла ошибка", e);
         }
 
         return null;

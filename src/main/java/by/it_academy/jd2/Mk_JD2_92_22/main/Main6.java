@@ -1,11 +1,16 @@
 package by.it_academy.jd2.Mk_JD2_92_22.main;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuServiceSingleton;
-import java.util.List;
+
 
 
 public class Main6 {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
+
+        TestPostClass testPostClass = new TestPostClass();
+        testPostClass.mainSix();
 
 
         /*List<IMenu> list = MenuDaoSingleton.getInstance().get();
@@ -25,8 +30,11 @@ public class Main6 {
         System.out.println(name);*/
 
 
-        List<IMenu> menuList = MenuServiceSingleton.getInstance().get();
+        /*List<IMenu> menuList = MenuServiceSingleton.getInstance().get();
         System.out.println(menuList);
+
+         */
     }
+
 }
 

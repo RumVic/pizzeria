@@ -72,17 +72,13 @@ public class MenuServlet extends HttpServlet {
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
-        if (req.getParameter("name").isEmpty()){
-            throw new IllegalArgumentException("The name is being empty.Specify the name");
-        }
-        if(req.getParameter("enable").isEmpty()){
-            throw new IllegalArgumentException("The enable parameter wasn't passed. Specify the enable param");
-        }
         MenuDTO createDTO = this.mapper.readValue(req.getInputStream(),MenuDTO.class);
-        menuService.create(createDTO);
-
-
-
+        try {
+            resp.getWriter().write(this.mapper.writeValueAsString(menuService.create(createDTO)));
+            resp.setStatus(HttpServletResponse.SC_CONFLICT);
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
     //UPDATE POSITION
