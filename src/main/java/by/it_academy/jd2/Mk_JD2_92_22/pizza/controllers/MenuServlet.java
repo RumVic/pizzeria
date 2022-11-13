@@ -94,10 +94,10 @@ public class MenuServlet extends HttpServlet {
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
-        if(!req.getParameter("id").isEmpty()){
+        if(req.getParameter("id").isEmpty()){
             throw new IllegalArgumentException("You didn't pass id parameter");
         }
-        if(!req.getParameter("dtUpdate").isEmpty()){
+        if(req.getParameter("dtUpdate").isEmpty()){
             throw new IllegalArgumentException("You didn't pass dtUpdate parameter");
         }
 
@@ -126,10 +126,10 @@ public class MenuServlet extends HttpServlet {
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
-        if(!req.getParameter("id").isEmpty()){
+        if(req.getParameter("id").isEmpty()){
             throw new IllegalArgumentException("You didn't pass id parameter");
         }
-        if(!req.getParameter("dtUpdate").isEmpty()){
+        if(req.getParameter("dtUpdate").isEmpty()){
             throw new IllegalArgumentException("You didn't pass dtUpdate parameter");
         }
 
