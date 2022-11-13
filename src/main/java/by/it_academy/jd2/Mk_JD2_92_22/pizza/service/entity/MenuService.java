@@ -65,6 +65,6 @@ public class MenuService implements IMenuService {
 
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
-
+        menuDao.delete(id,dtUpdate);
     }
 }

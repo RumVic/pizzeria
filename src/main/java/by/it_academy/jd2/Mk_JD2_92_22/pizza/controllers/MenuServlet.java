@@ -89,15 +89,22 @@ public class MenuServlet extends HttpServlet {
     //body json
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doPut(req, resp);
+
         req.setCharacterEncoding(CE);
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
+        if(!req.getParameter("id").isEmpty()){
+            throw new IllegalArgumentException("You didn't pass id parameter");
+        }
+        if(!req.getParameter("dtUpdate").isEmpty()){
+            throw new IllegalArgumentException("You didn't pass dtUpdate parameter");
+        }
+
         long id = Long.parseLong(req.getParameter("id"));
         LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        //2022-11-13T19:36:28.025110 this way send dtUpdate param;
+        //2022-11-13T19:36:28.025110 this way send dtUpdate param; you need send in this way
         try {
             MenuDTO createDTO = this.mapper.readValue(req.getInputStream(),MenuDTO.class);
             menuService.update(id,dtUpdate,createDTO);
@@ -114,6 +121,21 @@ public class MenuServlet extends HttpServlet {
     //need param version/date_update - optimistic lock
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doDelete(req, resp);
+
+        req.setCharacterEncoding(CE);
+        resp.setCharacterEncoding(CE);
+        resp.setContentType(CT);
+
+        if(!req.getParameter("id").isEmpty()){
+            throw new IllegalArgumentException("You didn't pass id parameter");
+        }
+        if(!req.getParameter("dtUpdate").isEmpty()){
+            throw new IllegalArgumentException("You didn't pass dtUpdate parameter");
+        }
+
+        long id = Long.parseLong(req.getParameter("id"));
+        LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+        menuService.delete(id,dtUpdate);
     }
 }
