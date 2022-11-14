@@ -13,7 +13,7 @@ public class MenuBuilder {
     private String name;
     private boolean enabled;
 
-    private static final MenuBuilder INSTANCE = new MenuBuilder();
+    //private static final MenuBuilder INSTANCE = new MenuBuilder();
 
     private MenuBuilder() {
     }
