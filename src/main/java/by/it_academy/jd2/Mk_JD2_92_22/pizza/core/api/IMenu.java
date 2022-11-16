@@ -40,4 +40,7 @@ public interface IMenu {
     boolean isEnabled();
 
     void setEnabled(boolean enabled);
+
+
+
 }

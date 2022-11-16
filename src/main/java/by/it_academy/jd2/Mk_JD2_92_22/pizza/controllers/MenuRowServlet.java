@@ -6,7 +6,6 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuRowServiceSin
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+
 
 //CRUD controller
 //IMenuRow
@@ -53,10 +51,9 @@ public class MenuRowServlet extends HttpServlet {
         IMenuRow menuRowById =
                 menuRowService.read(Long.parseLong(req.getParameter("id")));
         writer.write(this.mapper.writeValueAsString(menuRowById));
-             }else try {
-            List<IMenuRow> iMenuRowList = new ArrayList<>();
-            iMenuRowList = menuRowService.get();
-        writer.write(this.mapper.writeValueAsString(iMenuRowList));
+             }else
+                 try {
+        writer.write(this.mapper.writeValueAsString(menuRowService.get()));
         } catch (Exception e){
             System.out.println("We can't get MenuRow list");
         }

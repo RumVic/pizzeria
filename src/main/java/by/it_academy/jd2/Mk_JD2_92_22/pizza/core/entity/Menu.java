@@ -11,8 +11,16 @@ public class Menu implements IMenu {
     private LocalDateTime dtUpdate;
     private String name;
     private boolean enabled;
-
     private List<IMenuRow> items;
+
+    public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled, List<IMenuRow> items) {
+        this.id = id;
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
+        this.name = name;
+        this.enabled = enabled;
+        this.items = items;
+    }
 
     public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, boolean enabled) {
         this.id = id;
@@ -67,9 +75,9 @@ public class Menu implements IMenu {
                 ", dtUpdate=" + dtUpdate +
                 ", name='" + name + '\'' +
                 ", enabled=" + enabled +
+                ", items=" + items +
                 '}';
     }
-
 
     @Override
     public void setDtCreate(LocalDateTime dtCreate) {

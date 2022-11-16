@@ -12,23 +12,30 @@ import java.util.List;
 
 public class MenuRowDao implements IMenuRowDao {
 
-    private static final String INSERT_SQL = "INSERT INTO app.menu_Row(\n" +
+    private static final String INSERT_SQL = "INSERT INTO app.menu_row(\n" +
             "\tdt_create, dt_update,info,price,menu)\n" +
             "\tVALUES (?, ?, ?, ?, ?);";
 
+
+
     private static final String SELECT_BY_ID_SQL = "SELECT id, dt_create, dt_update, info, price, menu\n" +
-            "\tFROM app.menu_Row\n" +
+            "\tFROM app.menu_row\n" +
             "\tWHERE id = ?;";
 
     private static final String SELECT_SQL = "SELECT id, dt_create, dt_update, info, price, menu\n" +
-            "\tFROM app.menu_Row;";
+            "\tFROM app.menu_row;";
 
-    private static final String UPDATE_SQL = "UPDATE app.menu_Row\n" +
+    private static final String UPDATE_SQL = "UPDATE app.menu_row\n" +
             "\tSET dt_update = ?, info = ?, price = ?, menu = ?\n" +
             "\tWHERE id = ? and dt_update = ?;";
 
-    private static final String DELETE_SQL = "DELETE FROM app.menu_Row\n" +
+    private static final String DELETE_SQL = "DELETE FROM app.menu_row\n" +
             "\tWHERE id = ? and dt_update = ?;";
+
+    private static final String SELECT_MENUROW_BY_MENUID = "SELECT id, dt_create, dt_update, info, price, menu\n" +
+            "\tFROM app.menu_row\n" +
+            "\twhere menu = ?\n" +
+            "\t;";
 
     private final DataSource dataSource;
 
@@ -96,7 +103,7 @@ public class MenuRowDao implements IMenuRowDao {
         } catch (SQLException s) {
             System.out.println();
         }
-        return null;
+        return data;
     }
 
     @Override
@@ -148,6 +155,25 @@ public class MenuRowDao implements IMenuRowDao {
             throw new RuntimeException("При сохранении данных произошла ошибка", e);
         }
     }
+
+    public List<IMenuRow> readByMenuId (long idMenu) {
+        List<IMenuRow> menuRowList = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_MENUROW_BY_MENUID, Statement.RETURN_GENERATED_KEYS))
+        {
+            preparedStatement.setLong(1, idMenu);   //probably it is being put in WHERE construction
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    menuRowList.add(mapper(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("При чтении данных произошла ошибка", e);
+        }
+        return menuRowList;
+    }
+
 
     public IMenuRow mapper (ResultSet resultSet) throws SQLException {
         return new MenuRow(

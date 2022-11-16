@@ -3,6 +3,9 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.Menu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuRowDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.MenuRowDaoSingleton;
+
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -29,10 +32,15 @@ public class MenuDao implements IMenuDao {
     private static final String DELETE_SQL = "DELETE FROM app.menu\n" +
             "\tWHERE id = ? and dt_update = ?;";
 
+
+
     private final DataSource ds;
+
+    private IMenuRowDao menuRowDao;
 
     public MenuDao(DataSource ds) {
         this.ds = ds;
+        this.menuRowDao = MenuRowDaoSingleton.getInstance();
     }
 
     @Override
@@ -152,7 +160,7 @@ public class MenuDao implements IMenuDao {
                 rs.getObject(2, LocalDateTime.class),
                 rs.getObject(3, LocalDateTime.class),
                 rs.getString(4),
-                rs.getBoolean(5)
-        );
+                rs.getBoolean(5),
+                menuRowDao.readByMenuId(rs.getLong(1)));
     }
 }
