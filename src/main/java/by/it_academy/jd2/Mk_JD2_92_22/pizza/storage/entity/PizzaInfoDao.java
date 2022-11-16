@@ -1,10 +1,8 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IPizzaInfoDao;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.MenuRowDaoSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.PizzaInfoDaoSingleton;
 
 import javax.sql.DataSource;
@@ -36,6 +34,8 @@ public class PizzaInfoDao implements IPizzaInfoDao {
 
     private final DataSource dataSource;
 
+    private Connection connection;
+
     private IPizzaInfoDao pizzaInfoDao;
 
     public PizzaInfoDao(DataSource dataSource) {
@@ -66,7 +66,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
 
 
             //preparedStatement.getGeneratedKeys().getLong(1)
-            //return id from created line in firesultSett colum
+            //return id from created line in resultSet colum
         } catch (SQLException e) {
             throw new RuntimeException("The exception occurred while data was saving", e);
         }
@@ -117,9 +117,10 @@ public class PizzaInfoDao implements IPizzaInfoDao {
         ) {
             preparedStatement.setObject(1, item.getDtUpdate());
             preparedStatement.setString(2, item.getName());
-            preparedStatement.setBoolean(3, item.isEnabled());
-            preparedStatement.setLong(4, id);
-            preparedStatement.setObject(5, dtUpdate);
+            preparedStatement.setString(3, item.getDescription());
+            preparedStatement.setInt(4,item.getSize());
+            preparedStatement.setLong(5,id);
+            preparedStatement.setObject(6, dtUpdate);
 
             int countUpdatedRows = preparedStatement.executeUpdate();
 
@@ -140,6 +141,25 @@ public class PizzaInfoDao implements IPizzaInfoDao {
 
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL, Statement.RETURN_GENERATED_KEYS))
+        {
+            preparedStatement.setLong(1, id);
+            preparedStatement.setObject(2, dtUpdate);
+
+            int countUpdatedRows = preparedStatement.executeUpdate();
+
+            if (countUpdatedRows != 1) {
+                if (countUpdatedRows == 0) {
+                    throw new IllegalArgumentException("Не смогли удалить какую либо запись");
+                } else {
+                    throw new IllegalArgumentException("Удалили более одной записи");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("При сохранении данных произошла ошибка", e);
+        }
 
     }
 

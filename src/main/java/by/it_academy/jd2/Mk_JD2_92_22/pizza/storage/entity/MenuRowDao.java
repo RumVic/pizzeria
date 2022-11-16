@@ -3,6 +3,8 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.MenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuRowDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IPizzaInfoDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.PizzaInfoDaoSingleton;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -39,8 +41,11 @@ public class MenuRowDao implements IMenuRowDao {
 
     private final DataSource dataSource;
 
+    private IPizzaInfoDao pizzaInfoDao;
+
     public MenuRowDao(DataSource dataSource){
         this.dataSource = dataSource;
+        this.pizzaInfoDao = PizzaInfoDaoSingleton.getInstance();
     };
 
 
@@ -101,7 +106,7 @@ public class MenuRowDao implements IMenuRowDao {
                 }
             }
         } catch (SQLException s) {
-            System.out.println();
+            System.out.println("It is just a line for a while ");
         }
         return data;
     }

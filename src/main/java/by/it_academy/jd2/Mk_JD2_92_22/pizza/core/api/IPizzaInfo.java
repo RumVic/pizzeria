@@ -13,6 +13,17 @@ public interface IPizzaInfo {
 
     LocalDateTime getDtUpdate();
 
+    void setDtCreate(LocalDateTime dateTime);
+
+    void setDtUpdate(LocalDateTime dateTime);
+
+    void setName(String name);
+
+    void setDescription(String description);
+
+    void setSize(int size);
+
+
     /**
      * Название пиццы
      * @return
@@ -32,15 +43,7 @@ public interface IPizzaInfo {
      */
     int getSize();
 
-    void setDtCreate(LocalDateTime dateTime);
 
-    void setDtUpdate(LocalDateTime dateTime);
-
-    void setName(String name);
-
-    void setDescription(String description);
-
-    void setSize(int size);
 
 
 }

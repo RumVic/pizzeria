@@ -20,13 +20,16 @@ public class MenuRow implements IMenuRow {
 
     private long menu;
 
-    public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, long info, double price, long menu) {
+    private IPizzaInfo pizzaInfo;
+
+    public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, long info, double price, long menu,IPizzaInfo pizzaInfo) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.infoNumber = info;
         this.price = price;
-        this.menu = menu;
+        this.menu = menu;;
+        this.pizzaInfo = pizzaInfo;
     }
 
     @Override
@@ -76,31 +79,8 @@ public class MenuRow implements IMenuRow {
 
     @Override
     public IPizzaInfo getInfo() {
-        return null;
+        return ;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MenuRow menuRow = (MenuRow) o;
-        return id == menuRow.id && infoNumber == menuRow.infoNumber && Double.compare(menuRow.price, price) == 0 && menu == menuRow.menu && dtCreate.equals(menuRow.dtCreate) && dtUpdate.equals(menuRow.dtUpdate);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, dtCreate, dtUpdate, infoNumber, price, menu);
-    }
-
-    @Override
-    public String toString() {
-        return "MenuRow{" +
-                "id=" + id +
-                ", dtCreate=" + dtCreate +
-                ", dtUpdate=" + dtUpdate +
-                ", infoNumber=" + infoNumber +
-                ", price=" + price +
-                ", menu=" + menu +
-                '}';
-    }
 }
