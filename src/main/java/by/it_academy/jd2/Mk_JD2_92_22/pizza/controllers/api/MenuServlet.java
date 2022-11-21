@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.api;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuServiceSingleton;
@@ -73,7 +74,7 @@ public class MenuServlet extends HttpServlet {
         resp.setCharacterEncoding(CE);
         resp.setContentType(CT);
 
-        MenuDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuDTO.class);
+        IMenuDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuDTO.class);
         try {
             resp.getWriter().write(this.mapper.writeValueAsString(menuService.create(createDTO)));
             //resp.setStatus(HttpServletResponse.SC_CONFLICT);

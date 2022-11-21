@@ -11,17 +11,20 @@ import java.util.List;
 public class MenuDaoTest {
     @Test
     public void readTest(){
-
+        System.out.println("wtf1");
         IMenuDao menuDao = MenuDaoSingleton.getInstance();
-        //IMenu menu = menuDao.read(1);
+        System.out.println("wtf2");
+        IMenu menu = menuDao.read(1);
+        menu.toString();
+        System.out.println("wtf4");
         //check for the menu object gets list MenuRow and print it
-      /*  List<IMenuRow> list = menu.getItems();
-        for (IMenuRow iMenuRow :list)
-              {
-                  System.out.println(iMenuRow);
-        }*/
+        List<IMenuRow> list = menu.getItems();
+        System.out.println("wtf5");
 
-        //
+
+
+
+        /*
         List<IMenu> listMenu = menuDao.get();
         for (IMenu myMenu : listMenu
              ) {
@@ -31,7 +34,6 @@ public class MenuDaoTest {
             }
         }
 
-
-
+         */
     }
 }

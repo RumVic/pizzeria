@@ -31,17 +31,18 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     private static final String DELETE_SQL = "DELETE FROM app.pizza_info\n" +
             "\tWHERE id = ? and dt_update = ?;";
 
+    private static final String SELECT_PIZZAINFO_BY_ID = "SELECT id, dt_create, dt_update, name, description, size\n" +
+            "\tFROM app.pizza_info\n" +
+            "\twhere id = ?\n" +
+            "\t;";
+
 
     private final DataSource dataSource;
-
-    private Connection connection;
 
     private IPizzaInfoDao pizzaInfoDao;
 
     public PizzaInfoDao(DataSource dataSource) {
-
         this.dataSource = dataSource;
-        this.pizzaInfoDao = PizzaInfoDaoSingleton.getInstance();
     }
 
 
@@ -162,6 +163,26 @@ public class PizzaInfoDao implements IPizzaInfoDao {
         }
 
     }
+
+    public IPizzaInfo readById (long id){
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PIZZAINFO_BY_ID, Statement.RETURN_GENERATED_KEYS))
+        {
+            preparedStatement.setLong(1, id);   //probably it is being put in WHERE construction
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        return mapper(resultSet);
+                    }
+                }
+            }
+         catch (SQLException e) {
+            throw new RuntimeException("При чтении данных произошла ошибка", e);
+        }
+        return null;
+    }
+
 
     public IPizzaInfo mapper(ResultSet resultSet) throws SQLException {
         return new PizzaInfo(

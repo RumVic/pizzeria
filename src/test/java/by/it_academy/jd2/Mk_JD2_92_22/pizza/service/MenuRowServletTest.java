@@ -9,11 +9,8 @@ public class MenuRowServletTest {
     @Test
    public void testReadMethod() {
 
-        IMenuRowService menuRow = MenuRowServiceSingleton.getInstance();
-        System.out.println(menuRow.read(19));
-
-
-
+        /*IMenuRowService menuRow = MenuRowServiceSingleton.getInstance();
+        System.out.println(menuRow.read(19));*/
 
         //List<IMenuRow> list = MenuRowDaoSingleton.getInstance().get();
         //mapper.writeValueAsString(list);

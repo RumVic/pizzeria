@@ -32,7 +32,6 @@ public interface IMenu {
      */
     List<IMenuRow> getItems();
 
-
     /**
      * Меню доступно к использованию для заказа?
      * @return
@@ -41,6 +40,7 @@ public interface IMenu {
 
     void setEnabled(boolean enabled);
 
+    String toString();
 
 
 }

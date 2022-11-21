@@ -1,5 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity;
 
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IEssenceDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuDao;
@@ -12,12 +13,10 @@ public class MenuService implements IMenuService {
 
     private final IMenuDao menuDao;
 
-    //private IMenuDao menuDao = MenuDaoSingleton.getInstance();
-
-
     public MenuService(IMenuDao menuDao) {
         this.menuDao = menuDao;
     }
+
 
     @Override
     public IMenu create(IMenuDTO menuDTO) {
@@ -38,6 +37,7 @@ public class MenuService implements IMenuService {
     public List<IMenu> get() {
         return menuDao.get();
     }
+
 
     @Override
     public IMenu update(long id, LocalDateTime dtUpdate, IMenuDTO menuDTO) {

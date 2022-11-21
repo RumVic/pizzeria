@@ -1,7 +1,9 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.builders;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.MenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IPizzaInfoDao;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +20,8 @@ public class MenuRowBuilder {
     private double price;
 
     private long menu;
+
+    private IPizzaInfo pizzaInfo;
 
     private MenuRowBuilder() {};
 
@@ -54,9 +58,13 @@ public class MenuRowBuilder {
         this.menu = menu;
         return this;
     }
+    public MenuRowBuilder setPizzaInfo(IPizzaInfo pizzaInfo){
+        this.pizzaInfo = pizzaInfo;
+        return this;
+    }
 
     public  IMenuRow build() {
-        return new MenuRow(id,dtCreate,dtUpdate,info,price,menu);
+        return new MenuRow(id,dtCreate,dtUpdate,info,price,menu,pizzaInfo);
     }
 
 }

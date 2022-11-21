@@ -79,8 +79,31 @@ public class MenuRow implements IMenuRow {
 
     @Override
     public IPizzaInfo getInfo() {
-        return ;
+        return pizzaInfo ;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuRow menuRow = (MenuRow) o;
+        return id == menuRow.id && infoNumber == menuRow.infoNumber && Double.compare(menuRow.price, price) == 0 && menu == menuRow.menu && dtCreate.equals(menuRow.dtCreate) && dtUpdate.equals(menuRow.dtUpdate) && pizzaInfo.equals(menuRow.pizzaInfo);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dtCreate, dtUpdate, infoNumber, price, menu, pizzaInfo);
+    }
+
+    @Override
+    public String toString() {
+        return "MenuRow{" +
+                "id=" + id +
+                ", dtCreate=" + dtCreate +
+                ", dtUpdate=" + dtUpdate +
+                ", infoNumber=" + infoNumber +
+                ", price=" + price +
+                ", menu=" + menu +
+                '}';
+    }
 }

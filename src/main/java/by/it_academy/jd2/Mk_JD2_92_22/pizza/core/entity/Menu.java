@@ -4,6 +4,7 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenuRow;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class Menu implements IMenu {
     private long id;
@@ -66,6 +67,20 @@ public class Menu implements IMenu {
     public List<IMenuRow> getItems() {
         return items;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return id == menu.id && enabled == menu.enabled && dtCreate.equals(menu.dtCreate) && dtUpdate.equals(menu.dtUpdate) && name.equals(menu.name) && items.equals(menu.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dtCreate, dtUpdate, name, enabled, items);
+    }
+
 
     @Override
     public String toString() {

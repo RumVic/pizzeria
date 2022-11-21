@@ -44,4 +44,6 @@ public interface IMenuRow {
      * @return
      */
     double getPrice();
+
+    String toString();
 }

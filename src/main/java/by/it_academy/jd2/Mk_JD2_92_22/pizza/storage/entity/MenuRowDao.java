@@ -187,10 +187,7 @@ public class MenuRowDao implements IMenuRowDao {
                 resultSet.getObject(3,LocalDateTime.class),
                 resultSet.getLong(4),
                 resultSet.getDouble(5),
-                resultSet.getLong(6));
-
+                resultSet.getLong(6),
+                pizzaInfoDao.read(resultSet.getLong(4)));
     }
-
-
-
 }
