@@ -3,7 +3,6 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IPizzaInfoDao;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.PizzaInfoDaoSingleton;
 
 import javax.sql.DataSource;
 import java.sql.*;

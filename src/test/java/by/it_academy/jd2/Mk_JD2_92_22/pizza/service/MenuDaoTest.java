@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class MenuDaoTest {
+/*public class MenuDaoTest {
     @Test
     public void readTest(){
         System.out.println("wtf1");
@@ -19,7 +19,7 @@ public class MenuDaoTest {
         System.out.println("wtf4");
         //check for the menu object gets list MenuRow and print it
         List<IMenuRow> list = menu.getItems();
-        System.out.println("wtf5");
+        System.out.println("wtf5");*/
 
 
 
@@ -34,6 +34,7 @@ public class MenuDaoTest {
             }
         }
 
-         */
+
     }
 }
+*/

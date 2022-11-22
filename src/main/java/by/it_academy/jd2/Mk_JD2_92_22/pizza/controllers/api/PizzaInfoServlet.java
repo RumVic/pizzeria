@@ -38,6 +38,9 @@ public class PizzaInfoServlet extends HttpServlet {
                 .build();
     }
 
+    //Read POSITION
+    //1) Read list
+    //2) Read item (card) need id param
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -59,7 +62,8 @@ public class PizzaInfoServlet extends HttpServlet {
         }
     }
 
-
+    //CREATE POSITION
+    //body json
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -67,6 +71,14 @@ public class PizzaInfoServlet extends HttpServlet {
         req.setCharacterEncoding(CHARACTER_ENCODING);
         resp.setCharacterEncoding(CHARACTER_ENCODING);
         resp.setContentType(CONTENT_TYPE);
+
+        /*
+    {
+        "name": "Cuba",
+        "description": "wiht rom",
+        "size": 33
+    }
+         */
 
         IPizzaInfoDTO createDTO = this.mapper.readValue(req.getInputStream(), PizzaInfoDTO.class);
         try {
@@ -79,6 +91,10 @@ public class PizzaInfoServlet extends HttpServlet {
     }
 
 
+    //UPDATE POSITION
+    //need param id
+    //need param version/date_update - optimistic lock
+    //body json
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -86,6 +102,13 @@ public class PizzaInfoServlet extends HttpServlet {
         req.setCharacterEncoding(CHARACTER_ENCODING);
         resp.setCharacterEncoding(CHARACTER_ENCODING);
         resp.setContentType(CONTENT_TYPE);
+        /*
+        {
+            "name": "Cuba",
+            "description": "wiht rom",
+            "size": 33,
+                  }
+        */
 
         if (req.getParameter("id").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass id parameter");
@@ -107,7 +130,9 @@ public class PizzaInfoServlet extends HttpServlet {
 
     }
 
-
+    //DELETE POSITION
+    //need param id
+    //need param version/date_update - optimistic lock
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

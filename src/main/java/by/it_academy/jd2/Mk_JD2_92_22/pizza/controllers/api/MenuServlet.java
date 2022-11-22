@@ -25,8 +25,8 @@ import java.util.List;
 @WebServlet(name = "MenuServlet", urlPatterns = "/menu")
 public class MenuServlet extends HttpServlet {
 
-    private final String CE = "UTF-8";              //characterEncoding
-    private final String CT = "application/json";   //contentType
+    private final String CHARACTER_ENCODING = "UTF-8";              //characterEncoding
+    private final String CONTENT_TYPE = "application/json";   //contentType
 
     private IMenuService menuService;
     private ObjectMapper mapper;
@@ -46,9 +46,9 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding(CE);
-        resp.setCharacterEncoding(CE);
-        resp.setContentType(CT);
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
         PrintWriter writer = resp.getWriter();
 
         if (req.getParameter("id") != null) {
@@ -70,9 +70,9 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IllegalArgumentException, ServletException, IOException {
 
-        req.setCharacterEncoding(CE);
-        resp.setCharacterEncoding(CE);
-        resp.setContentType(CT);
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
 
         IMenuDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuDTO.class);
         try {
@@ -90,9 +90,9 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding(CE);
-        resp.setCharacterEncoding(CE);
-        resp.setContentType(CT);
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
 
         if (req.getParameter("id").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass id parameter");
@@ -105,6 +105,7 @@ public class MenuServlet extends HttpServlet {
         LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         //2022-11-13T19:36:28.025110 this way send dtUpdate param; you need send in this way
+        //2022-11-22T19:50:31.252
         try {
             MenuDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuDTO.class);
             menuService.update(id, dtUpdate, createDTO);
@@ -121,9 +122,9 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding(CE);
-        resp.setCharacterEncoding(CE);
-        resp.setContentType(CT);
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
 
         if (req.getParameter("id").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass id parameter");

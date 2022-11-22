@@ -24,8 +24,8 @@ import java.time.format.DateTimeFormatter;
 @WebServlet(name = "MenuPositionServlet", urlPatterns = "/menu/positions")
 public class MenuRowServlet extends HttpServlet {
 
-    private final String CE = "UTF-8";              //characterEncoding
-    private final String CT = "aplication/json";    //contentType
+    private final String CHARACTER_ENCODING = "UTF-8";              //characterEncoding
+    private final String CONTENT_TYPE = "aplication/json";    //contentType
 
     private IMenuRowService menuRowService;
 
@@ -45,9 +45,9 @@ public class MenuRowServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    req.setCharacterEncoding(CE);
-    resp.setContentType(CT);
-    resp.setCharacterEncoding(CE);
+    req.setCharacterEncoding(CHARACTER_ENCODING);
+    resp.setCharacterEncoding(CHARACTER_ENCODING);
+    resp.setContentType(CONTENT_TYPE);
     PrintWriter writer = resp.getWriter();
 
 
@@ -69,9 +69,16 @@ public class MenuRowServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding(CE);
-        resp.setCharacterEncoding(CE);
-        resp.setContentType(CT);
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
+        /*
+        {
+    "infoNumber": 13,
+    "price": 100,
+    "menu": 1
+}
+         */
 
         IMenuRowDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuRowDTO.class);
         try {
@@ -90,9 +97,9 @@ public class MenuRowServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding(CE);
-        resp.setCharacterEncoding(CE);
-        resp.setContentType(CT);
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
 
         if (req.getParameter("id").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass id parameter");
@@ -120,9 +127,9 @@ public class MenuRowServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding(CE);
-        resp.setCharacterEncoding(CE);
-        resp.setContentType(CT);
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
 
         if (req.getParameter("id").isEmpty()) {
             throw new IllegalArgumentException("You didn't pass id parameter");

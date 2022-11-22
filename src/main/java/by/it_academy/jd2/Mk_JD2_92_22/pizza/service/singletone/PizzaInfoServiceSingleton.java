@@ -1,6 +1,5 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IPizza;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IPizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity.PizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.PizzaInfoDaoSingleton;

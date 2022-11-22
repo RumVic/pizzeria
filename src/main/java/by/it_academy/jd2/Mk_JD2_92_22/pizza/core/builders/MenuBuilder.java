@@ -1,6 +1,5 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.builders;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IEssenceDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.Menu;
 
