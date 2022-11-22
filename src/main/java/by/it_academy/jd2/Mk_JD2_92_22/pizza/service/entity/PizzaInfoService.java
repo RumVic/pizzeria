@@ -56,18 +56,18 @@ public class PizzaInfoService implements IPizzaInfoService {
 
     @Override
     public IPizzaInfo read(long id) {
-        return null;
+        return pizzaInfoDao.read(id);
     }
 
     @Override
     public List<IPizzaInfo> get() {
-        return null;
+        return pizzaInfoDao.get();
     }
 
 
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
-
+        pizzaInfoDao.delete(id, dtUpdate);
     }
 }
 
