@@ -34,6 +34,7 @@ public class MenuRow implements IMenuRow {
 
     @Override
     public long getId() {return id;}
+
     @Override
     public long getInfoNumber() {
         return infoNumber;

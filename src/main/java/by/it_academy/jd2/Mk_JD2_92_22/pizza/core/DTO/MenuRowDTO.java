@@ -6,21 +6,21 @@ import java.util.Objects;
 
 public class MenuRowDTO implements IMenuRowDTO {
 
-    private long info;
+    private long infoNumber;
     private double price;
     private long menu;
     public MenuRowDTO() {
     }
 
     public MenuRowDTO(long info, double price, long menu) {
-        this.info = info;
+        this.infoNumber = info;
         this.price = price;
         this.menu = menu;
     }
 
     @Override
-    public long getInfo() {
-        return info;
+    public long getInfoNumber() {
+        return infoNumber;
     }
 
     public double getPrice() {
@@ -36,18 +36,18 @@ public class MenuRowDTO implements IMenuRowDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuRowDTO that = (MenuRowDTO) o;
-        return info == that.info && Double.compare(that.price, price) == 0 && menu == that.menu;
+        return infoNumber == that.infoNumber && Double.compare(that.price, price) == 0 && menu == that.menu;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(info, price, menu);
+        return Objects.hash(infoNumber, price, menu);
     }
 
     @Override
     public String toString() {
         return "MenuRowDTO{" +
-                "info=" + info +
+                "info=" + infoNumber +
                 ", price=" + price +
                 ", menu=" + menu +
                 '}';

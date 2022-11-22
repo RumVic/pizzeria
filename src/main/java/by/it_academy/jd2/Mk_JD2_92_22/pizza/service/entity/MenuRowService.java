@@ -24,7 +24,7 @@ public class MenuRowService implements IMenuRowService {
                 .create()
                 .setDtCreate(LocalDateTime.now())
                 .setDtUpdate(LocalDateTime.now())
-                .setInfo(menuRowDTO.getInfo())
+                .setInfo(menuRowDTO.getInfoNumber())
                 .setPrice(menuRowDTO.getPrice())
                 .setMenu(menuRowDTO.getMenu())
                 .build());
@@ -47,7 +47,7 @@ public class MenuRowService implements IMenuRowService {
         IMenuRow menuRowUpdate = MenuRowBuilder.create()
                 .setDtCreate(readed.getDtCreate())
                 .setDtUpdate(LocalDateTime.now())
-                .setInfo(menuRowDTO.getInfo())
+                .setInfo(menuRowDTO.getInfoNumber())
                 .setPrice(menuRowDTO.getPrice())
                 .setMenu(menuRowDTO.getMenu())
                 .build();
