@@ -1,13 +1,17 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.api;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuRowDTO;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuRowDTO;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenuRow;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuRowService;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuRowServiceSingleton;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.SelectedItemDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.ISelectedItemDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.ISelectedItem;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.ISelectedItemService;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.SelectedItemServiceSingleton;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,72 +21,64 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+@WebServlet(name = "SelectedItemServlet",urlPatterns ="/selected/item")
+public class SelectedItemServlet extends HttpServlet {
 
-//CRUD controller
-//IMenuRow
-@WebServlet(name = "MenuPositionServlet", urlPatterns = "/menu/positions")
-public class MenuRowServlet extends HttpServlet {
+    private final String CHARACTER_ENCODING = "UTF-8";
 
-    private final String CHARACTER_ENCODING = "UTF-8";              //characterEncoding
-    private final String CONTENT_TYPE = "aplication/json";    //contentType
+    private final String CONTENT_TYPE = "application/json";
 
-    private IMenuRowService menuRowService;
+    public ObjectMapper mapper;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    public ISelectedItemService selectedItemService;
 
-    public MenuRowServlet() {
-        this.menuRowService = MenuRowServiceSingleton.getInstance();
+    public SelectedItemServlet() {
+
+        this.selectedItemService = SelectedItemServiceSingleton.getInstance();
+
         this.mapper = new ObjectMapper();
-        this.mapper = JsonMapper.builder()
+
+        this.mapper = JsonMapper.builder()          //add module as mapper didn't read LocalDateTime
                 .addModule(new JavaTimeModule())
                 .build();
     }
 
-    //Read POSITION
-    //1) Read list
-    //2) Read item (card) need id param
+    // get List<MenuRow>
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    req.setCharacterEncoding(CHARACTER_ENCODING);
-    resp.setCharacterEncoding(CHARACTER_ENCODING);
-    resp.setContentType(CONTENT_TYPE);
-    PrintWriter writer = resp.getWriter();
+        req.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setCharacterEncoding(CHARACTER_ENCODING);
+        resp.setContentType(CONTENT_TYPE);
+        PrintWriter writer = resp.getWriter();
 
-
-        if(req.getParameter("id")!=null){
-        IMenuRow menuRowById =
-                menuRowService.read(Long.parseLong(req.getParameter("id")));
-        writer.write(this.mapper.writeValueAsString(menuRowById));
-             }else
-                 try {
-        writer.write(this.mapper.writeValueAsString(menuRowService.get()));
-        } catch (Exception e){
-            System.out.println("We can't get MenuRow list");
+        if (req.getParameter("id") != null) {
+            ISelectedItem positionById = selectedItemService.read(Long.parseLong(req.getParameter("id")));
+            writer.write(this.mapper.writeValueAsString(positionById));
+        } else {
+            try {
+                List<ISelectedItem> selectedItems = selectedItemService.get();
+                writer.write(this.mapper.writeValueAsString(selectedItems));
+            } catch (Exception e) {
+                System.out.println("Something went wrong in try block");
+            }
         }
 
     }
 
-    //CREATE POSITION
-    //body json
+    // we send json which we get from get request
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding(CHARACTER_ENCODING);
         resp.setCharacterEncoding(CHARACTER_ENCODING);
         resp.setContentType(CONTENT_TYPE);
-        /*
-        {
-    "infoNumber": 13,
-    "price": 100,
-    "menu": 1
-}
-         */
 
-        IMenuRowDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuRowDTO.class);
+        ISelectedItemDTO createDTO = this.mapper.readValue(req.getInputStream(), SelectedItemDTO.class);
         try {
-            resp.getWriter().write(this.mapper.writeValueAsString(menuRowService.create(createDTO)));
+            resp.getWriter().write(this.mapper.writeValueAsString(selectedItemService.create(createDTO)));
             //resp.setStatus(HttpServletResponse.SC_CONFLICT);
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -90,10 +86,7 @@ public class MenuRowServlet extends HttpServlet {
 
     }
 
-    //UPDATE POSITION
-    //need param id
-    //need param version/date_update - optimistic lock
-    //body json
+    // we can change our selectedItem
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -109,22 +102,20 @@ public class MenuRowServlet extends HttpServlet {
         }
 
         long id = Long.parseLong(req.getParameter("id"));
-        LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"),
-                DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         //2022-11-13T19:36:28.025110 this way send dtUpdate param; you need send in this way
+        //2022-11-22T19:50:31.252
         try {
-            IMenuRowDTO createDTO = this.mapper.readValue(req.getInputStream(), MenuRowDTO.class);
-            menuRowService.update(id, dtUpdate, createDTO);
+            SelectedItemDTO createDTO = this.mapper.readValue(req.getInputStream(), SelectedItemDTO.class);
+            selectedItemService.update(id, dtUpdate, createDTO);
         } catch (IllegalArgumentException i) {
             System.out.println("Check out accuracy wrote data");
         }
 
     }
 
-    //DELETE POSITION
-    //need param id
-    //need param version/date_update - optimistic lock
+    // we can delete our order
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -142,7 +133,7 @@ public class MenuRowServlet extends HttpServlet {
         long id = Long.parseLong(req.getParameter("id"));
         LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        menuRowService.delete(id, dtUpdate);
-
+        selectedItemService.delete(id, dtUpdate);
+        
     }
 }

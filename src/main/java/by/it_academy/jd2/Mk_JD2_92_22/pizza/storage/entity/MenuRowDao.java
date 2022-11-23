@@ -5,7 +5,6 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity.MenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IMenuRowDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.PizzaInfoDaoSingleton;
-
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -116,7 +115,7 @@ public class MenuRowDao implements IMenuRowDao {
         try(Connection connection  = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL,Statement.RETURN_GENERATED_KEYS))
         {
-            preparedStatement.setObject(1, item.getDtCreate());
+            preparedStatement.setObject(1, item.getDtUpdate());
             preparedStatement.setLong(2, item.getInfoNumber());
             preparedStatement.setDouble(3, item.getPrice());
             preparedStatement.setLong(4,item.getMenu());

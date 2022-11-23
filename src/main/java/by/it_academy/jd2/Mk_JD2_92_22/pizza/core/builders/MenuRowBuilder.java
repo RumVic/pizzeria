@@ -14,13 +14,12 @@ public class MenuRowBuilder {
 
     private LocalDateTime dtUpdate;
 
-    private long info;
+    private long infoNumber;
 
     private double price;
 
     private long menu;
 
-    private IPizzaInfo pizzaInfo;
 
     private MenuRowBuilder() {};
 
@@ -43,8 +42,8 @@ public class MenuRowBuilder {
         return this;
     }
 
-    public MenuRowBuilder setInfo(long info) {
-        this.info = info;
+    public MenuRowBuilder setInfoNumber(long infoNumber) {
+        this.infoNumber = infoNumber;
         return this;
     }
 
@@ -57,13 +56,9 @@ public class MenuRowBuilder {
         this.menu = menu;
         return this;
     }
-    public MenuRowBuilder setPizzaInfo(IPizzaInfo pizzaInfo){
-        this.pizzaInfo = pizzaInfo;
-        return this;
-    }
 
     public  IMenuRow build() {
-        return new MenuRow(id,dtCreate,dtUpdate,info,price,menu,pizzaInfo);
+        return new MenuRow(id,dtCreate,dtUpdate, infoNumber,price,menu);
     }
 
 }

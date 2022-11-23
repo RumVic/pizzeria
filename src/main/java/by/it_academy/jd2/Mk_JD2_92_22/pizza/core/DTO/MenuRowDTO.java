@@ -9,6 +9,7 @@ public class MenuRowDTO implements IMenuRowDTO {
     private long infoNumber;
     private double price;
     private long menu;
+
     public MenuRowDTO() {
     }
 
