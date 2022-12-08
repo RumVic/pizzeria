@@ -6,8 +6,6 @@ import java.util.Objects;
 
 public class MenuDTO implements IMenuDTO {
 
-
-
     private String name;
     private boolean enabled;
 

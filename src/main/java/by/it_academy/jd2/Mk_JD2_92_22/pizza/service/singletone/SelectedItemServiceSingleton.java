@@ -6,7 +6,7 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.singleton.SelectedItemDaoSin
 
 public class SelectedItemServiceSingleton {
 
-    private ISelectedItemService selectedItemService;
+    private final ISelectedItemService selectedItemService;
 
     private static volatile SelectedItemServiceSingleton instance;
 

@@ -15,6 +15,10 @@ public class SelectedItemBuilder {
 
     private long selectedPositions;
 
+    private long count;
+
+    private long order;
+
 
     private SelectedItemBuilder() {
     }
@@ -43,8 +47,18 @@ public class SelectedItemBuilder {
         return this;
     }
 
+    public SelectedItemBuilder setCount(long count) {
+        this.count = count;
+        return this;
+    }
+
+    public SelectedItemBuilder setOrder(long order) {
+        this.order = order;
+        return this;
+    }
+
     public ISelectedItem build(){
-        return new SelectedItem(dtCreate,dtUpdate,infoClient,selectedPositions);
+        return new SelectedItem(dtCreate,dtUpdate,infoClient,selectedPositions,count,order);
     }
 
 }

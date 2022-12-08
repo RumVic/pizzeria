@@ -17,29 +17,51 @@ public class SelectedItem implements ISelectedItem {
 
     private long selectedPositions;
 
+    private long count;
+
+    private long order;
+
     private IMenuRow menuRowPosition;
 
-    public SelectedItem(long id, LocalDateTime dtCreate, LocalDateTime stUpdate, String infoClient, long selectedPositions) {
+    public SelectedItem(long id,String infoClient,long count){
         this.id = id;
-        this.dtCreate = dtCreate;
-        this.dtUpdate = stUpdate;
         this.infoClient = infoClient;
-        this.selectedPositions = selectedPositions;
+        this.count = count;
     }
 
-    public SelectedItem(LocalDateTime dtCreate, LocalDateTime stUpdate, String infoClient, long selectedPositions) {
-        this.dtCreate = dtCreate;
-        this.dtUpdate = stUpdate;
-        this.infoClient = infoClient;
-        this.selectedPositions = selectedPositions;
-    }
-
-    public SelectedItem(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String infoClient, long selectedPositions, IMenuRow menuRowPosition) {
+    public SelectedItem(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate,
+                        String infoClient, long selectedPositions,
+                        long count, long order) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.infoClient = infoClient;
         this.selectedPositions = selectedPositions;
+        this.count = count;
+        this.order = order;
+    }
+
+    public SelectedItem(LocalDateTime dtCreate,
+                        LocalDateTime dtUpdate, String infoClient,
+                        long selectedPositions, long count, long order) {
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
+        this.infoClient = infoClient;
+        this.selectedPositions = selectedPositions;
+        this.count = count;
+        this.order = order;
+    }
+
+    public SelectedItem(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate,
+                        String infoClient, long selectedPositions, long count, long order,
+                        IMenuRow menuRowPosition) {
+        this.id = id;
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
+        this.infoClient = infoClient;
+        this.selectedPositions = selectedPositions;
+        this.count = count;
+        this.order = order;
         this.menuRowPosition = menuRowPosition;
     }
 
@@ -70,11 +92,20 @@ public class SelectedItem implements ISelectedItem {
 
     @Override
     public IMenuRow getRow() {
-        return null;
+        return menuRowPosition;
     }
 
     @Override
-    public int getCount() {
-        return 0;
+    public long getCount() {
+        return count;
+    }
+
+    @Override
+    public long getOrder() {
+        return order;
+    }
+
+    public void setMenuRowPosition(IMenuRow menuRowPosition) {
+        this.menuRowPosition = menuRowPosition;
     }
 }

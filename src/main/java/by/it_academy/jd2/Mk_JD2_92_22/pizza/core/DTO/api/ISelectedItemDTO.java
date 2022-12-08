@@ -8,5 +8,9 @@ public interface ISelectedItemDTO extends IEssenceDTO<ISelectedItem> {
 
     long getSelectedPositions();
 
+    long getCount();
+
+    long getOrder();
+
 
 }

@@ -1,10 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.api;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.SelectedItemDTO;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.ISelectedItemDTO;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.ISelectedItem;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.ISelectedItemService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.SelectedItemServiceSingleton;
@@ -102,12 +99,13 @@ public class SelectedItemServlet extends HttpServlet {
         }
 
         long id = Long.parseLong(req.getParameter("id"));
-        LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"),
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         //2022-11-13T19:36:28.025110 this way send dtUpdate param; you need send in this way
         //2022-11-22T19:50:31.252
         try {
-            SelectedItemDTO createDTO = this.mapper.readValue(req.getInputStream(), SelectedItemDTO.class);
+            ISelectedItemDTO createDTO = this.mapper.readValue(req.getInputStream(), SelectedItemDTO.class);
             selectedItemService.update(id, dtUpdate, createDTO);
         } catch (IllegalArgumentException i) {
             System.out.println("Check out accuracy wrote data");
@@ -134,6 +132,6 @@ public class SelectedItemServlet extends HttpServlet {
         LocalDateTime dtUpdate = LocalDateTime.parse(req.getParameter("dtUpdate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         selectedItemService.delete(id, dtUpdate);
-        
+
     }
 }

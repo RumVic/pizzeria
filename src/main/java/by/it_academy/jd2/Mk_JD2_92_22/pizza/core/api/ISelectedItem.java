@@ -29,5 +29,7 @@ public interface ISelectedItem {
      * Количество выбранного
      * @return
      */
-    int getCount();
+    long getCount();
+
+    long getOrder();
 }

@@ -1,5 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity;
 
+
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.ISelectedItemDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.ISelectedItem;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.builders.SelectedItemBuilder;
@@ -9,25 +10,25 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.api.ISelectedItemDao;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 public class SelectedItemService implements ISelectedItemService {
 
-    private  ISelectedItemDao selectedItemDao;
+    private ISelectedItemDao selectedItemDao;
 
     public SelectedItemService(ISelectedItemDao selectedItemDao) {
         this.selectedItemDao = selectedItemDao;
     }
 
 
-
-
-
     @Override
     public ISelectedItem create(ISelectedItemDTO selectedItemDTO) {
-          return selectedItemDao.create(SelectedItemBuilder.create()
+        return selectedItemDao.create(SelectedItemBuilder.create()
                 .setDtCreate(LocalDateTime.now())
                 .setDtUpdate(LocalDateTime.now())
                 .setInfoClient(selectedItemDTO.getInfoClient())
                 .setSelectedPositions(selectedItemDTO.getSelectedPositions())
+                .setCount(selectedItemDTO.getCount())
+                .setOrder(selectedItemDTO.getOrder())
                 .build());
     }
 
@@ -45,14 +46,16 @@ public class SelectedItemService implements ISelectedItemService {
             throw new IllegalArgumentException("Unfortunately this line was fixed somebody else");
         }
 
-        ISelectedItem menuUpdate = SelectedItemBuilder.create()
+        ISelectedItem selectedItemUpdate = SelectedItemBuilder.create()
                 .setDtCreate(readed.getDtCreate())
                 .setDtUpdate(LocalDateTime.now())
                 .setInfoClient(selectedItemDTO.getInfoClient())
                 .setSelectedPositions(selectedItemDTO.getSelectedPositions())
+                .setCount(selectedItemDTO.getCount())
+                .setOrder(selectedItemDTO.getOrder())
                 .build();
 
-        return selectedItemDao.update(id, dtUpdate, menuUpdate);
+        return selectedItemDao.update(id, dtUpdate, selectedItemUpdate);
 
     }
 
@@ -68,6 +71,7 @@ public class SelectedItemService implements ISelectedItemService {
 
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
-
+        selectedItemDao.delete(id, dtUpdate);
     }
+
 }

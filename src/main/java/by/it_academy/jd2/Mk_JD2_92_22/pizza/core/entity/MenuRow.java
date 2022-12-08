@@ -22,6 +22,10 @@ public class MenuRow implements IMenuRow {
 
     private IPizzaInfo pizzaInfo;
 
+    public MenuRow(double price){
+        this.price = price;
+    }
+
     public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, long info, double price, long menu,IPizzaInfo pizzaInfo) {
         this.id = id;
         this.dtCreate = dtCreate;
