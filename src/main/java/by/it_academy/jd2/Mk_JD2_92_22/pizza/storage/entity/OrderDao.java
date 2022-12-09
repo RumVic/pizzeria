@@ -149,15 +149,15 @@ public class OrderDao implements IOrderDao {
         while (resultSetSelItem.next()) {
 
             SelectedItem selectedItem = new SelectedItem(
-                    resultSetSelItem.getLong("id"),
-                    resultSetSelItem.getString("info_client"),
-                    resultSetSelItem.getLong("count"));
+                    resultSetSelItem.getLong(1),
+                    resultSetSelItem.getString(2),
+                    resultSetSelItem.getLong(3));
             listSelectedItem.add(selectedItem);
 
-            MenuRow menuRow = new MenuRow(resultSetOrder.getDouble("price"));
+            MenuRow menuRow = new MenuRow(resultSetOrder.getDouble(4));
             listMenuRow.add(menuRow);
 
-            PizzaInfo pizzaInfo = new PizzaInfo(resultSetSelItem.getString("name"));
+            PizzaInfo pizzaInfo = new PizzaInfo(resultSetSelItem.getString(6));
             selectedItem.setMenuRowPosition(menuRow);
         }
         order.setListSelectedItem(listSelectedItem);
