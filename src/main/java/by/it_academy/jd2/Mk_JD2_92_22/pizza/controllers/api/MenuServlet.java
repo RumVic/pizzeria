@@ -1,32 +1,30 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.api;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.MenuDTO;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.DTO.api.IMenuDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.api.IMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.service.singletone.MenuServiceSingleton;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 //CRUD controller
 //IMenu
-@WebServlet(name = "MenuServlet", urlPatterns = "/menu")
-public class MenuServlet extends HttpServlet {
+@RestController
+@RequestMapping ("/menu")
+public class MenuServlet  { //extends HttpServlet
 
+/*
     private final String CHARACTER_ENCODING = "UTF-8";              //characterEncoding
     private final String CONTENT_TYPE = "application/json";   //contentType
+*/
 
     private IMenuService menuService;
     private ObjectMapper mapper;
@@ -43,7 +41,21 @@ public class MenuServlet extends HttpServlet {
     //Read POSITION
     //1) Read list
     //2) Read item (card) need id param
-    @Override
+    @GetMapping
+    @RequestMapping("/{id}")
+    protected ResponseEntity<IMenu> get(@PathVariable() long id){
+        IMenu read = menuService.read(id);
+        return  ResponseEntity.ok(read);
+        //   return  ResponseEntity.ok(menuService.read(id));
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    protected ResponseEntity<List<IMenu>> get(){
+        List<IMenu> list = menuService.get();
+        return  ResponseEntity.ok(list);
+    }
+
+    /*@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding(CHARACTER_ENCODING);
@@ -67,6 +79,13 @@ public class MenuServlet extends HttpServlet {
 
     //CREATE POSITION
     //body json
+    @PostMapping
+    public ResponseEntity<IMenu> doPost(@RequestBody MenuDTO menuDTO){
+        IMenu created = this.menuService.create(menuDTO);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    }
+      */
+    /*
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IllegalArgumentException, ServletException, IOException {
 
@@ -83,10 +102,24 @@ public class MenuServlet extends HttpServlet {
         }
     }
 
+     */
+
     //UPDATE POSITION
     //need param id
     //need param version/date_update - optimistic lock
     //body json
+    @PostMapping("/{id}/{dt_update}")
+    protected ResponseEntity<IMenu> doPut(@PathVariable long id,
+                         @PathVariable("dt_update") long dtUpdateRow ,
+                         @RequestBody MenuDTO data){
+        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(dtUpdateRow),
+                ZoneId.of("UTS"));
+        return ResponseEntity.ok(this.menuService.update(id,dtUpdate,data));
+    }
+}
+
+    /*
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -112,13 +145,15 @@ public class MenuServlet extends HttpServlet {
         } catch (IllegalArgumentException i) {
             System.out.println("Check out accuracy wrote data");
         }
-
-
     }
+
+     */
+
 
     //DELETE POSITION
     //need param id
     //need param version/date_update - optimistic lock
+    /*
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -139,3 +174,5 @@ public class MenuServlet extends HttpServlet {
         menuService.delete(id, dtUpdate);
     }
 }
+
+     */

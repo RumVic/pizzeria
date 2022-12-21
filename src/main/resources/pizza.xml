@@ -1,0 +1,71 @@
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+        <mvc:annotation-driven/>
+        <tx:annotation-driven/>
+
+    <context:component-scan base-package="by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.api"/>
+
+    <bean id="myEmf"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="by.it_academy.jd2.Mk_JD2_92_22.pizza.core.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/spring_jpa"/>
+        <property name="username" value="tutorialuser"/>
+        <property name="password" value="tutorialmy5ql"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="myEmf"/>
+    </bean>
+
+
+
+    <bean id="persistenceExceptionTranslationPostProcessor" class=
+            "org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+    <bean id="pizzaInfoService" class="by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity.PizzaInfoService">
+        <constructor-arg name="pizzaInfoDao" ref="pizzaInfoDao"/>
+    </bean>
+
+    <bean id="menuService" class="by.it_academy.jd2.Mk_JD2_92_22.pizza.service.entity.MenuService">
+        <constructor-arg name="menuDao" ref="menuDao"/>
+    </bean>
+
+    <bean id="menuDao" class="by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity.MenuDao">
+        <constructor-arg name="ds" ref="dataSource"/>
+    </bean>
+
+    <bean id="pizzaInfoDao" class="by.it_academy.jd2.Mk_JD2_92_22.pizza.storage.entity.PizzaInfoDao">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>
